@@ -13,6 +13,7 @@ import java.util.Scanner;
  * After selection, InitializeZorgApp creates a SessionCoordinator to manage the session for the selected user.
  */
 
+//TODO: Translate all console output and names to English
 
 class InitializeZorgApp {
     public static void main(String[] args) {

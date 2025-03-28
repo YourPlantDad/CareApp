@@ -1,7 +1,7 @@
-package ZorgApp.users;
+package CareApp.users;
 
-import ZorgApp.medication.Medication;
-import ZorgApp.patients.Patient;
+import CareApp.medication.Medication;
+import CareApp.patients.Patient;
 
 /**
  * The User class is an abstract base class for different types of healthcare professionals.

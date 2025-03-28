@@ -1,4 +1,4 @@
-package ZorgApp.medication;
+package CareApp.medication;
 
 /**
  * The Medication class represents a single medication, storing details such as name, dosage, frequency, and type
@@ -29,9 +29,9 @@ public class Medication {
     }
 
     void medicationDetails() {
-        System.out.println("Naam: " + medicationName);
-        System.out.println("Dosering: " + medicationDosage);
-        System.out.println("Frequentie: " + medicationFrequency);
+        System.out.println("Name: " + medicationName);
+        System.out.println("Dosage: " + medicationDosage);
+        System.out.println("Frequency: " + medicationFrequency);
         System.out.println("Type: " + medicationType);
     }
 }

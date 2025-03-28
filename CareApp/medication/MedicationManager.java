@@ -1,4 +1,4 @@
-package ZorgApp.medication;
+package CareApp.medication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class MedicationManager {
     // View medications, with an option to filter for narcotics only
     public void viewMedications(boolean narcoticOnly) {
         if (medications.isEmpty()) {
-            System.out.println("Er zijn geen recepten.");
+            System.out.println("There are no recipes available.");
             return;
         }
 
@@ -38,6 +38,4 @@ public class MedicationManager {
             }
         }
     }
-
-
 }

@@ -1,6 +1,6 @@
-package ZorgApp.coordination;
+package CareApp.coordination;
 
-import ZorgApp.users.*;
+import CareApp.users.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,36 +8,34 @@ import java.util.Scanner;
 
 /**
  * The InitializeZorgApp class is the main entry point for the application, allowing the user to select a role
- * (e.g., Huisarts, Tandarts, Apotheek) and begin a session. It initializes the list of users for each role
+ * (e.g., GP, Dentist, Pharmacist) and begin a session. It initializes the list of users for each role
  * and provides an interactive console-based interface for selecting a role and user.
  * After selection, InitializeZorgApp creates a SessionCoordinator to manage the session for the selected user.
  */
 
-//TODO: Translate all console output and names to English
-
-class InitializeZorgApp {
+class InitializeCareApp {
     public static void main(String[] args) {
-        List<User> huisartsUsers = new ArrayList<>();
-        huisartsUsers.add(new Huisarts(1, "Dr. Duin, Huisarts"));
-        huisartsUsers.add(new Huisarts(2, "Dr. Badell, Huisarts"));
+        List<User> gpUsers = new ArrayList<>();
+        gpUsers.add(new GP(1, "Dr. Duin, GP"));
+        gpUsers.add(new GP(2, "Dr. Badell, GP"));
 
-        List<User> physiotherapyUsers = new ArrayList<>();
-        physiotherapyUsers.add(new Fysiotherapeut(1, "Dr. van de Lagemaat, Fysiotherapeut"));
-        physiotherapyUsers.add(new Fysiotherapeut(2, "Dr. van Es, Fysiotherapeut"));
+        List<User> physiotherapistUsers = new ArrayList<>();
+        physiotherapistUsers.add(new Physiotherapist(1, "Dr. van de Lagemaat, Physiotherapist"));
+        physiotherapistUsers.add(new Physiotherapist(2, "Dr. van Es, Physiotherapist"));
 
-        List<User> tandartsUsers = new ArrayList<>();
-        tandartsUsers.add(new Tandarts(1, "Dr. Bakker, Tandarts"));
-        tandartsUsers.add(new Tandarts(2, "Dr. de Groot, Tandarts"));
+        List<User> dentistUsers = new ArrayList<>();
+        dentistUsers.add(new Dentist(1, "Dr. Bakker, Dentist"));
+        dentistUsers.add(new Dentist(2, "Dr. de Groot, Dentist"));
 
-        List<User> apotheekUsers = new ArrayList<>();
-        apotheekUsers.add(new Apotheek(1, "Dr. de Jong, Apotheker"));
-        apotheekUsers.add(new Apotheek(2, "Dr. van den Berg, Apotheker"));
+        List<User> pharmacistUsers = new ArrayList<>();
+        pharmacistUsers.add(new Pharmacist(1, "Dr. de Jong, Pharmacist"));
+        pharmacistUsers.add(new Pharmacist(2, "Dr. van den Berg, Pharmacist"));
 
-        System.out.println("Kies uw zorgverlener rol:");
-        System.out.println("1: Huisarts");
-        System.out.println("2: Fysiotherapeut");
-        System.out.println("3: Tandarts");
-        System.out.println("4: Apotheek");
+        System.out.println("Choose your caregiver role:");
+        System.out.println("1: GP");
+        System.out.println("2: Physiotherapist");
+        System.out.println("3: Dentist");
+        System.out.println("4: Pharmacist");
 
         Scanner scanner = new Scanner(System.in);
         int selectedCategoryId = scanner.nextInt();
@@ -47,19 +45,19 @@ class InitializeZorgApp {
 
         switch (selectedCategoryId) {
             case 1:
-                selectedCategoryUsers = huisartsUsers;
+                selectedCategoryUsers = gpUsers;
                 break;
             case 2:
-                selectedCategoryUsers = physiotherapyUsers;
+                selectedCategoryUsers = physiotherapistUsers;
                 break;
             case 3:
-                selectedCategoryUsers = tandartsUsers;
+                selectedCategoryUsers = dentistUsers;
                 break;
             case 4:
-                selectedCategoryUsers = apotheekUsers;
+                selectedCategoryUsers = pharmacistUsers;
                 break;
             default:
-                System.out.println("Ongeldige keuze.");
+                System.out.println("Invalid choice.");
                 return;
         }
 
@@ -70,12 +68,12 @@ class InitializeZorgApp {
             SessionCoordinator sessionCoordinator = new SessionCoordinator(selectedUser);
             sessionCoordinator.menu(); // Start session through the coordinator
         } else {
-            System.out.println("Ongeldige keuze.");
+            System.out.println("Invalid choice.");
         }
     }
 
     private static User getUserByName(List<User> users) {
-        System.out.println("Kies een gebruiker:");
+        System.out.println("Choose a user:");
 
         for (User user : users) {
             System.out.format("[%d] %s\n", user.getUserID(), user.getUserName());

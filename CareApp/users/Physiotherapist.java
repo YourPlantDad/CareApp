@@ -1,24 +1,24 @@
-package ZorgApp.users;
+package CareApp.users;
 
-import ZorgApp.medication.Medication;
-import ZorgApp.patients.Patient;
+import CareApp.medication.Medication;
+import CareApp.patients.Patient;
 
 /**
- * The Fysiotherapeut class is a subclass of User representing a physical therapist. This role has permissions
+ * The Physiotherapist class is a subclass of User representing a physical therapist. This role has permissions
  * to view and add only non-narcotic medications and cannot access narcotic medications. It customizes the
  * behavior of medication-related methods to respect these permissions.
  */
 
 
-public class Fysiotherapeut extends User {
+public class Physiotherapist extends User {
 
-    public Fysiotherapeut(int id, String name) {
+    public Physiotherapist(int id, String name) {
         super(id, name);
     }
 
     @Override
     public void viewMedication(Patient patient) {
-        System.out.println("Je hebt niet de juiste rechten om patiënten hun voorgeschreven medicatie te bekijken.");
+        System.out.println("You do not have the proper permissions to view patients' prescribed medications.");
     }
 
     @Override
@@ -28,6 +28,6 @@ public class Fysiotherapeut extends User {
 
     @Override
     public void addMedication(Patient patient, String medicationName, String dosage, String frequency, Medication.MedicationType type) {
-        System.out.println("Je hebt niet de juiste rechten om patiënten medicatie voor te schrijven.");
+        System.out.println("You do not have the proper rights to prescribe medication to patients.");
     }
 }

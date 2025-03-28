@@ -1,12 +1,12 @@
-package ZorgApp.patients;
-
-import ZorgApp.medication.Medication;
-import ZorgApp.medication.MedicationManager;
+package CareApp.patients;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+import CareApp.medication.Medication;
+import CareApp.medication.MedicationManager;
 
 /**
  * The Patient class represents a patient with attributes such as name, birthdate, weight, and height.
@@ -51,61 +51,60 @@ public class Patient {
     public void editPatientInformation() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Selecteer de informatie die je wilt aanpassen:");
-        System.out.println("1. Achternaam");
-        System.out.println("2. Voornaam");
-        System.out.println("3. Geboortedatum");
-        System.out.println("4. Gewicht");
-        System.out.println("5. Lengte");
-        System.out.println("6. Stop met het bewerken van patiënt informatie");
+        System.out.println("Select the information you would like to edit:");
+        System.out.println("1. Surname");
+        System.out.println("2. First name");
+        System.out.println("3. Date of birth");
+        System.out.println("4. Weight");
+        System.out.println("5. Height");
+        System.out.println("6. Stop editing patient information");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
         switch (choice) {
             case 1:
-                System.out.print("Voer nieuwe achternaam in: ");
+                System.out.print("Enter new last name: ");
                 surname = scanner.nextLine();
                 break;
             case 2:
-                System.out.print("Voer nieuwe voornaam in: ");
+                System.out.print("Enter new first name: ");
                 firstName = scanner.nextLine();
                 break;
             case 3:
-                System.out.print("Voer nieuwe geboortedatum in (dd-MM-yyyy): ");
+                System.out.print("Enter new date of birth (dd-mm-yyyy): ");
                 String birthDateStr = scanner.nextLine();
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 dateOfBirth = LocalDate.parse(birthDateStr, dateFormatter);
                 break;
             case 4:
-                System.out.print("Voer nieuw gewicht in kilogrammen in: ");
+                System.out.print("Enter new weight in kilograms: ");
                 weight = scanner.nextDouble();
                 break;
             case 5:
-                System.out.print("Voer nieuwe lengte in centimeters in: ");
+                System.out.print("Enter new length in centimeters: ");
                 height = scanner.nextDouble();
                 break;
             case 6:
-                System.out.println("Het bewerk patiëntgegevens scherm wordt gesloten.");
+                System.out.println("The edit patient-data screen will be closed.");
                 return;
             default:
-                System.out.println("Ongeldige keuze.");
+                System.out.println("Invalid choice.");
         }
-        System.out.println("Patiëntgegevens van " + fullName() + " geüpdated");
+        System.out.println("Patient data of " + fullName() + " has been updated.");
     }
 
     public void viewData() {
-        System.out.format("===== Patient id=%d ==============================\n", id);
-        System.out.format("%-17s %s\n", "Achternaam:", surname);
-        System.out.format("%-17s %s\n", "Voornaam:", firstName);
-        System.out.format("%-17s %s\n", "Geboortedatum:", dateOfBirth.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-        System.out.format("%-17s %s kg\n", "Gewicht", weight);
-        System.out.format("%-17s %s cm\n", "Lengte", height);
-
         calculateBMI();
-        System.out.format("%-17s %.1f \n", "BMI:", bmi);
-
         calculateAge();
-        System.out.format("%-17s %d years\n", "Leeftijd:", age);
+        
+        System.out.format("===== Patient id=%d ==============================\n", id);
+        System.out.format("%-17s %s\n", "Surname:", surname);
+        System.out.format("%-17s %s\n", "First name:", firstName);
+        System.out.format("%-17s %s\n", "Date of birth:", dateOfBirth.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        System.out.format("%-17s %s kg\n", "Weight", weight);
+        System.out.format("%-17s %s cm\n", "Height", height);
+        System.out.format("%-17s %.1f \n", "BMI:", bmi);
+        System.out.format("%-17s %d years\n", "Age:", age);
     }
 
     public void addMedication(String name, String dosage, String frequency, Medication.MedicationType type) {

@@ -1,11 +1,12 @@
-package ZorgApp.coordination;
-
-import ZorgApp.medication.Medication;
-import ZorgApp.patients.Patient;
-import ZorgApp.users.User;
+package CareApp.coordination;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import CareApp.medication.Medication;
+import CareApp.patients.Patient;
+import CareApp.users.User;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +18,6 @@ import java.time.format.DateTimeParseException;
  * management tasks, and allows each User subclass to interact with patients and medications
  * according to their specific permissions.
  */
-
 
 class SessionCoordinator {
     private Patient patient;
@@ -53,15 +53,15 @@ class SessionCoordinator {
 
         while (nextCycle) {
             System.out.format("%s\n", "=".repeat(80));
-            System.out.format("Huidige patiënt: %s\n", patient.fullName());
-            System.out.format("%d: Stop het programma\n", STOP);
-            System.out.format("%d: Bekijk huidige patiënt gegevens\n", VIEW);
-            System.out.format("%d: Bewerk huidige patiëntinformatie\n", EDIT_PATIENT);
-            System.out.format("%d: Patiënt medicatie scherm\n", MEDICATIONS);
-            System.out.format("%d: Bekijk alle patiënten\n", VIEW_ALL_PATIENTS);
-            System.out.format("%d: Wissel van geselecteerde patiënt\n", SWITCH_PATIENT);
-            System.out.format("%d: Nieuwe patiënt toevoegen\n", ADD_PATIENT);
-            System.out.print("Kies een optie: ");
+            System.out.format("Current patient: %s\n", patient.fullName());
+            System.out.format("%d: Stop the program\n", STOP);
+            System.out.format("%d: View current patient data\n", VIEW);
+            System.out.format("%d: Edit current patient information\n", EDIT_PATIENT);
+            System.out.format("%d: Patient medication screen\n", MEDICATIONS);
+            System.out.format("%d: View all patients\n", VIEW_ALL_PATIENTS);
+            System.out.format("%d: Switch the selected patient\n", SWITCH_PATIENT);
+            System.out.format("%d: Add new patient\n", ADD_PATIENT);
+            System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -88,7 +88,7 @@ class SessionCoordinator {
                     addNewPatient();
                     break;
                 default:
-                    System.out.println("Ongeldige keuze.");
+                    System.out.println("Invalid choice.");
                     break;
             }
         }
@@ -98,42 +98,42 @@ class SessionCoordinator {
     public void handleMedications() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("1: Nieuwe medicatie toewijzen");
-        System.out.println("2: Bekijk voorgeschreven medicatie");
-        System.out.println("Kies een optie: ");
+        System.out.println("1: Assign new medication");
+        System.out.println("2: View prescribed medication");
+        System.out.print("Choose an option: ");
         int medicationChoice = scanner.nextInt();
         scanner.nextLine();
 
         if (medicationChoice == 1) {
-            System.out.print("Medicatie naam: ");
+            System.out.print("Medication name: ");
             String name = scanner.nextLine();
-            System.out.print("Dosering in milligrammen: ");
+            System.out.print("Dosage in milligrams: ");
             String dosage = scanner.nextLine();
-            System.out.print("Inname frequentie: ");
+            System.out.print("Intake frequency: ");
             String frequency = scanner.nextLine();
-            System.out.print("Type medicatie (1 for VERDOVEND, 2 for NIET VERDOVEND): ");
+            System.out.print("Medication type (1 for NARCOTIC, 2 for NON_NARCOTIC): ");
             int typeChoice = scanner.nextInt();
             Medication.MedicationType type = (typeChoice == 1) ? Medication.MedicationType.NARCOTIC : Medication.MedicationType.NON_NARCOTIC;
 
             if (user.canAddMedication(type)) {
                 user.addMedication(patient, name, dosage, frequency, type);
             } else {
-                System.out.println("Je hebt niet de juiste permissie om dit type medicatie voor te schrijven.");
+                System.out.println("You do not have the correct permission to prescribe this type of medication.");
             }
         } else if (medicationChoice == 2) {
             user.viewMedication(patient);
         } else {
-            System.out.println("Ongeldige keuze.");
+            System.out.println("Invalid choice.");
         }
     }
 
     private void addNewPatient() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Voer achternaam in: ");
+        System.out.print("Enter last name: ");
         String lastName = scanner.next();
-        System.out.print("Voer voornaam in: ");
+        System.out.print("Enter first name: ");
         String firstName = scanner.next();
-        System.out.print("Voer geboortedatum in (dd-MM-yyyy): ");
+        System.out.print("Enter birth date (dd-MM-yyyy): ");
         scanner.nextLine();
         String birthDateStr = scanner.nextLine().trim();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -141,30 +141,30 @@ class SessionCoordinator {
         try {
             birthDate = LocalDate.parse(birthDateStr, dateFormatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Ongeldige geboortedatum format. Gebruik dd-MM-yyyy.");
+            System.out.println("Invalid date format. Use dd-MM-yyyy.");
             return;
         }
-        System.out.print("Voer gewicht in in kilogrammen): ");
+        System.out.print("Enter weight in kilograms: ");
         double weight = scanner.nextDouble();
-        System.out.print("Voer lengte in in centimeters: ");
+        System.out.print("Enter height in centimeters: ");
         double height = scanner.nextDouble();
         int newPatientID = patients.size() + 1;
         Patient newPatient = new Patient(newPatientID, lastName, firstName, birthDate, weight, height);
         patients.add(newPatient);
-        System.out.println("Patiënt " + firstName + " " + lastName + " toegevoegd.");
+        System.out.println("Patient " + firstName + " " + lastName + " has been added.");
     }
 
     private void viewAllPatients() {
-        System.out.println("Een lijst van patiënten wordt opgehaald.");
+        System.out.println("A list of patients is being retrieved.");
         for (Patient patient : patients) {
             System.out.println(patient.fullName());
         }
     }
 
     private void switchPatient() {
-        System.out.println("Selecteer een nieuwe actieve patiënt:");
+        System.out.println("Select a new active patient:");
         for (Patient patient : patients) {
-            System.out.format("[%d] %s\n", patient.getId(), patient.fullName());
+            System.out.format("%d: %s\n", patient.getId(), patient.fullName());
         }
 
         Scanner scanner = new Scanner(System.in);
@@ -180,11 +180,9 @@ class SessionCoordinator {
 
         if (selectedPatient != null) {
             patient = selectedPatient;
-            System.out.println("De huidige patiënt is nu " + patient.fullName() + ".");
+            System.out.println("The current patient is now " + patient.fullName() + ".");
         } else {
-            System.out.println("Ongeldig ID geselecteerd.");
+            System.out.println("Invalid ID selected.");
         }
     }
-
-
 }

@@ -1,24 +1,24 @@
-package ZorgApp.users;
+package CareApp.users;
 
-import ZorgApp.medication.Medication;
-import ZorgApp.patients.Patient;
+import CareApp.medication.Medication;
+import CareApp.patients.Patient;
 
 /**
- * The Tandarts class is a subclass of User representing a dentist. This role is restricted to viewing and
+ * The Dentist class is a subclass of User representing a dentist. This role is restricted to viewing and
  * adding only narcotic medications and cannot manage non-narcotic medications. The class customizes the
  * behavior of medication-related methods based on these permissions.
  */
 
 
-public class Tandarts extends User {
+public class Dentist extends User {
 
-    public Tandarts(int id, String name) {
+    public Dentist(int id, String name) {
         super(id, name);
     }
 
     @Override
     public void viewMedication(Patient patient) {
-        System.out.println("De voorgeschreven verdovende medicatie van " + patient.fullName() + " wordt opgehaald.");
+        System.out.println("Retrieving the prescribed anesthetic medication from " + patient.fullName() + ".");
         patient.viewNarcoticMedications();
     }
 
@@ -31,9 +31,9 @@ public class Tandarts extends User {
     public void addMedication(Patient patient, String medicationName, String dosage, String frequency, Medication.MedicationType type) {
         if (canAddMedication(type)) {
             patient.addMedication(medicationName, dosage, frequency, type);
-            System.out.println("Verdovende medicatie " + medicationName + " correct voorgeschreven.");
+            System.out.println("Narcotic medication " + medicationName + " correctly prescribed.");
         } else {
-            System.out.println("Tandartsen mogen alleen verdovende medicatie voorschrijven.");
+            System.out.println("Dentists may only prescribe anesthetic medications.");
         }
     }
 }

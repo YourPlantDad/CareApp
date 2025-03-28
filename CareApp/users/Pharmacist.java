@@ -1,24 +1,24 @@
-package ZorgApp.users;
+package CareApp.users;
 
-import ZorgApp.medication.Medication;
-import ZorgApp.patients.Patient;
+import CareApp.medication.Medication;
+import CareApp.patients.Patient;
 
 /**
- * The Apotheek class is a subclass of User representing a pharmacist. This role has permissions to view
+ * The Pharmacist class is a subclass of User representing a pharmacist. This role has permissions to view
  * all medications for patients but may be restricted in terms of adding medications, depending on the
  * application’s specific rules.
  */
 
 
-public class Apotheek extends User {
+public class Pharmacist extends User {
 
-    public Apotheek(int id, String name) {
+    public Pharmacist(int id, String name) {
         super(id, name);
     }
 
     @Override
     public void viewMedication(Patient patient) {
-        System.out.println("De voorgeschreven medicatie van " + patient.fullName() + " wordt opgehaald.");
+        System.out.println("Retrieving the prescribed medication for " + patient.fullName() + ".");
         patient.viewAllMedications();
     }
 
@@ -29,6 +29,6 @@ public class Apotheek extends User {
 
     @Override
     public void addMedication(Patient patient, String medicationName, String dosage, String frequency, Medication.MedicationType type) {
-        System.out.println("Je hebt niet de juiste rechten om patiënten medicatie voor te schrijven.");
+        System.out.println("You do not have the right to prescribe medication to patients.");
     }
 }

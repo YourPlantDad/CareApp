@@ -46,13 +46,13 @@ The application is structured into several packages:
 
 ## Running the Application
 
-1. **Compile the Project:**  
+1. **Compile the project:**  
    Download the repository.
 
-2. **Run the Application:**  
-   Open the root folder in VSCode and run the InitializeZorgApp.java file
+2. **Run the application:**  
+   Open the root folder in VSCode and run the InitializeCareApp.java file
 
-3. **Follow the Console Prompts:**  
+3. **Follow the console prompts:**  
    Select your role, choose a user, and interact with the application to view or edit patient information and manage medication.
 
 ---
